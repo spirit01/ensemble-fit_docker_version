@@ -1,0 +1,5 @@
+Running script for docker:
+sudo docker run --rm -ti ensemble bash -v /home/petrahrozkova/Dokumenty/ensemble-test/:/ensemble/
+
+Comments and explanation:
+-v source_directory:docker_directory

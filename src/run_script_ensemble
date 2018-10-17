@@ -1,0 +1,153 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# run script for an experiment with ensemble
+import os
+import subprocess
+import sys
+from argparse import ArgumentParser
+from os import listdir
+import pathlib
+import logging
+from time import localtime, strftime
+import pkgutil
+import configparser
+from saxs_experiment import run_method
+
+
+class SpecialFormatter(logging.Formatter):
+    FORMATS = {logging.DEBUG: logging._STYLES['{'][0]("DEBUG: {message}"),
+               logging.ERROR: logging._STYLES['{'][0]("{module} : {lineno}: {message}"),
+               logging.INFO: logging._STYLES['{'][0]("{message}"),
+               'DEFAULT': logging._STYLES['{'][0](" {message}")}
+
+    def format(self, record):
+        # Ugly. Should be better
+        self._style = self.FORMATS.get(record.levelno, self.FORMATS['DEFAULT'])
+        return logging.Formatter.format(self, record)
+
+
+def get_argument():
+    parser = ArgumentParser()
+    parser.add_argument("-n", metavar='N', type=int,
+                        dest="n_files",
+                        help="Number of selected structure",
+                        required=True)
+
+    parser.add_argument("-k", metavar='K', type=int,
+                        dest="k_options",
+                        help="Number of possibility structure, less then selected files",
+                        required=True)
+
+    parser.add_argument("-r", metavar='R', type=int,
+                        dest="repeat", help="Number of repetitions",
+                        default=1)
+
+    parser.add_argument("--tolerance", type=float, dest="tolerance",
+                        help="pessimist (0) or optimist (0 < x <1) result",
+                        default=0)
+    parser.add_argument("-d", "--dir", dest="mydirvariable",
+                        help="Choose dir", metavar="DIR", required=True)
+    parser.add_argument("--verbose", type=int,
+                        help="increase output verbosity, value 0, 1, 2, 3",
+                        default=0)
+
+    parser.add_argument("--verbose_logfile", help="increase output verbosity",
+                        action="store_true")
+
+    parser.add_argument("--preserve", help="preserve temporary directory",
+                        action="store_true")
+    parser.add_argument("--output", help="choose directory to save output",
+                        metavar="DIR", dest="output", required=True)
+
+    parser.add_argument("--experimentdata", help="choose file for adderror",
+                        metavar="DIR", dest="experimentdata", required=True)
+
+    return parser.parse_args()
+
+
+def run_script(method, args, path, verbose_logfile, verbose):
+    if verbose_logfile:
+        call = subprocess.run([f'./saxs_experiment.py', '-d', f'{args.mydirvariable}', '-n', f'{args.n_files}', '-k',
+                               f'{args.k_options}', '--tolerance', f' {args.tolerance}'
+                                  , '--preserve', '--output', f'{path}', '-r', f'{args.repeat}',
+                               '--verbose_logfile', '--verbose', f'{verbose}', '--experimentdata',
+                               f'{args.experimentdata}', '--method', f'{method}'])
+
+    else:
+        call = subprocess.run([f'./saxs_experiment.py', '-d', f'{args.mydirvariable}', '-n', f'{args.n_files}', '-k',
+                               f'{args.k_options}', '--tolerance', f' {args.tolerance}', '--verbose', f'{verbose}',
+                               '--preserve', '--output',
+                               f'{path}', '-r', f'{args.repeat}', '--experimentdata', f'{args.experimentdata}',
+                               '--method', f'{method}'])
+    if call.returncode:
+        print(f'ERROR: run_script failed', file=sys.stderr)
+        sys.exit(1)
+
+
+def check_binary():
+    if os.path.exists(f'{os.getcwd()}/config.ini'):
+        return True
+    else:
+        print('Config file does not exist!')
+    return False
+
+
+def work_with_result(path, method):
+    rmsd = []
+    std = []
+    files = listdir(path)
+    for line in files:
+        with open(f'{path}/{line}') as file:
+            for line in file:
+                if line.startswith('*****FINAL RMSD'):
+                    rmsd.append(line.split('|')[1])
+                    std.append(line.split('|')[2])
+
+    result_file = list(zip(method, rmsd, std))
+    for method, rmsd, std in result_file:
+        logging.info(f'{method} , {float(rmsd):.3f} , {float(std):.3f}')
+
+def get_saxs_methods(config):
+    return list(m.name for m in pkgutil.iter_modules([config['SOURCE_METHODS']['path']]))
+
+def main():
+    config = configparser.ConfigParser()
+    config.read(f'{os.getcwd()}/config.ini')
+    if not check_binary():
+        sys.exit(1)
+    available_methods = get_saxs_methods(config)
+    args = get_argument()
+    datum = strftime("%Y-%m-%d__%H-%M-%S", localtime())
+    path = f'{args.output}/results/result_{datum}'
+    pathlib.Path(path).mkdir(parents=True, exist_ok=True)
+    hdlr = logging.FileHandler(
+        f'{args.output}/results/result_{datum}/final_result_n{args.n_files}_k{args.k_options}_{strftime("%Y-%m-%d__%H-%M-%S", localtime())}.log')
+    hdlr.setFormatter(SpecialFormatter())
+    logging.root.addHandler(hdlr)
+    logging.root.setLevel(logging.INFO)
+    logging.root.setLevel(logging.DEBUG)
+    logging.info(f'***Output from script*** {strftime("%Y-%m-%d__%H-%M-%S", localtime())} \n')
+    logging.info(f'#Total files : {args.n_files} \n')
+    logging.info(f'#Selected files : {args.k_options} \n')
+    logging.info(f'#Number of repetition: {args.repeat} \n')
+    os.path.abspath(args.mydirvariable)
+    logging.info(f'Directory with structures: {os.path.abspath(args.mydirvariable)}')
+    logging.info('Method, RMSD, std')
+    run_methods = []
+    for method in config.sections():
+        if method in available_methods and int(config[method]['value']) != -1:
+            run_methods.append(method)
+
+    for method in run_methods:
+        if int(config[method]['value']) == 0:
+            path_method = method
+            run_method(args, path_method, method)
+        else:
+            path_method = config[method]['path']
+            run_method(args, path_method, method)
+
+    work_with_result(path, run_methods)
+
+
+if __name__ == '__main__':
+    main()
