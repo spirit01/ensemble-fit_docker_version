@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/view_experiment.css') }}">
+    <script src="{{ url_for('static',filename='scripts/purl.js') }}"></script>
+    <script src="{{ url_for('static',filename='scripts/highcharts.js') }}"></script>
+    <script src="{{ url_for('static',filename='scripts/app/view_experiment.js') }}"></script>
+{% endblock %}
+
+{% block header %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+    <div class="error-screen">
+        <img id="error-icon" class="" src="/static/styles/icons/error.png">
+        <span>Could not load data. Please try again.</span>
+    </div>
+    <div class="loading-screen">
+        <span>loading...</span>
+    </div>
+    <div class="chart-fullscreen">
+         <input type="button" class="btnCloseChartFullscreen" value="X" />
+    </div>
+    <div class="best-results-table">
+        <div id="best-results-table-overlay"></div>
+        <p class="header-row">
+            <span>c</span>
+            <span>c1</span>
+            <span>c2</span>
+            <span>chi</span>
+            {% for item in best_results[0][5:] %}
+                <span>w{{ loop.index }}</span>
+            {% endfor %}
+        </p>
+        {% for item in best_results %}
+            <p class="result-row">
+                <input type="hidden" value="{{ item[0] }}">
+                {% for weight in item[1:5] %}
+                    <span>{{ weight }}</span>
+                {% endfor %}
+                {% for weight in item[5:] %}
+                    <span class="weight">{{ weight }}</span>
+                {% endfor %}
+            </p>
+        {% endfor %}
+    </div>
+    <div class="experiment_details">
+            <p class="home-button">
+                <a class="home_button" href="/home">Home</a>
+            </p>
+            <p class="exp_details">
+                <span>Date: </span></span><span class="date">{{ computation_details.date }}</span>
+                <span>Name: </span><span class="name">{{ computation_details.name }}</span>
+            </p>
+            <p class="exp_properties">
+                <span class="algorithm">Algorithm: </span><span>{{ computation_details.optim_algorithm }}</span>
+                <span class="max_q">q_max value: </span><span>{{ computation_details.max_q }}</span>
+                <span class="steps">Calculation steps: </span><span>{{ computation_details.optim_steps }}</span>
+                <span class="sync">Steps between synchronization: </span><span>{{ computation_details.optim_sync }}</span>
+                <span class="alpha">Alpha: </span><span>{{ computation_details.optim_alpha }}</span>
+                <span class="beta">Beta: </span><span>{{ computation_details.optim_beta }}</span>
+                <span class="gamma">Gamma: </span><span>{{ computation_details.optim_gamma }}</span>
+            </p>
+            <!--<p class="exp_uploaded_files">-->
+                <!--<span class="steps">Models: </span>-->
+                <!--<a class="download" href="/static/uploads/models.pdb" download="{{ current_user.username }}_models">models</a>-->
+                <!--<span class="sync">Experiment data: </span>-->
+                <!--<a class="download" href="/static/uploads/saxs.dat" download="{{ current_user.username }}_exp_data">saxs.dat</a>-->
+            <!--</p>-->
+    </div>
+    <hr>
+    <div id="PresentationPanel">
+        <div class="DataViewerPanel">
+            <div id="pvViewer"></div>
+            <div id="chart"></div>
+        </div>
+        <div class="ControlsPanel">
+            <div id="controls-panel-overlay"></div>
+            <div class="Controls">
+                <div class="row">
+                    <label class="progressLabel">Progress:</label>
+                    <div class="progressBar"></div>
+                    <span class="progress_value"></span>
+                </div>
+                <div class="row">
+                    <label class="sliderLabel">Weight:</label>
+                    <input type="range" id="sliderWeight" class="btnSlider" value="0" min="0" max="100" step="1" title="Weight" />
+                    <span class="sliderWeightValue">-</span>
+                </div>
+                <div class="row">
+                    <label class="sliderLabel">Sum Of Weights:</label>
+                    <input type="range" id="sliderSummation" class="btnSlider" value="0" min="0" max="100" step="1" title="SWeight" />
+                    <span class="sliderSummationValue">-</span>
+                </div>
+                <div class="row">
+                    <label class="select-label">Select:</label>
+                    <input type="radio" id="radioSelectAll" name="select" value="1"><label for="radioSelectAll" class="select-val option-selected radioSelectAll">All</label>
+                    <input type="radio" id="radioSelectNone" name="select"  value="2"><label for="radioSelectNone" class="select-val radioSelectNone">None</label>
+                    <input type="radio" id="radioHighestValue" name="select" value="3"><label for="radioHighestValue" class="select-val radioHighestValue">Highest weight</label>
+                </div>
+                <div class="row">
+                    <label class="sort-label">Sort by weight:</label>
+                    <input type="radio" id="radioSortAsc" name="sort" value="1"><label for="radioSortAsc" class="sort-val radioSortAsc">Ascending</label>
+                    <input type="radio" id="radioSortDesc" name="sort" value="2"><label for="radioSortDesc" class="sort-val radioSortDesc">Descending</label>
+                    <input type="radio" id="radioSortDefault" name="sort" value="3"><label for="radioSortDefault" class="sort-val option-selected radioSortDefault">Default</label>
+                </div>
+             </div>
+            <div class="model_buttons"></div>
+        </div>
+    </div>
+{% endblock %}

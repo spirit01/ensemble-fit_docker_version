@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/unavailable.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="info">
+        <img src="/static/styles/icons/{{ icon }}" >
+        <span>
+            {{ message }}
+            {% if current_user.is_authenticated %}
+                or <a href="/home">go to your home page</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+<html>
+    <head>
+        {% block head %}
+            <link rel= "stylesheet" href= "{{ url_for('static',filename='styles/base.css') }}">
+            <link href="{{ url_for('static',filename='styles/jquery-ui.min.css') }}" rel="stylesheet"/>
+            <script src="{{ url_for('static',filename='scripts/jquery-2.1.1.min.js') }}"></script>
+            <script src="{{ url_for('static',filename='scripts/jquery-ui.min.js') }}"></script>
+            <script src="{{ url_for('static',filename='scripts/jquery.validate.min.js') }}"></script>
+            <script src="{{ url_for('static',filename='scripts/bio-pv.min.js') }}"></script>
+            <script src="{{ url_for('static',filename='scripts/app/base.js') }}"></script>
+        {% endblock %}
+    </head>
+    <body>
+    <div class="PageWrapper">
+        <header>
+            {% block header %}
+                {% if is_admin %}
+                    <a href="/admin/user" class="user_management_link">User Management</a>
+                {% endif %}
+                <p class="signout_greetings-wrapper">
+                    <span class="greetings">Hi, {{ username }}</span>
+                </p>
+            {% endblock %}
+        </header>
+      <section>
+        {% block content %}{% endblock %}
+      </section>
+      <footer>
+          <div class="footer-content-wrapper">
+              <span>Jaroslav Cabala 2015</span>
+              <a href="https://www.facebook.com/yayo.cabala" target="_blank">
+                  <img class="fb-icon" src="/static/styles/icons/fb_light_blue.png">
+              </a>
+              <img class="gmail-icon" src="/static/styles/icons/gmail_light_red.png">
+              <span class="mail-address">cab.jaro@gmail.com</span>
+              <div class="icons-license">Icons made by
+                  <a href="http://www.freepik.com" target="_blank" title="Freepik">Freepik</a>
+                  from <a href="http://www.flaticon.com" target="_blank" title="Flaticon">www.flaticon.com</a>
+              </div>
+          </div>
+      </footer>
+    </div>
+    </body>
+</html>

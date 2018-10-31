@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/unconfirmed.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/bootstrap.min.css') }}">
+    <script src="{{ url_for('static',filename='scripts/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='scripts/bootstrap.min.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper container">
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+        <h1 class="">
+            Hello, {{ username }}!
+        </h1>
+        <h2 class="red-color">Your account has not been confirmed!</h2>
+        <p class="">Before you can access this site, admins need to confirm
+            your account. You will get an email when that happens.</p>
+    </div>
+</div>
+{% endblock %}

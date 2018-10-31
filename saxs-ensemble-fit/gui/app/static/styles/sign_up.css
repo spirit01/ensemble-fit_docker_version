@@ -1,0 +1,180 @@
+html, body, .PageWrapper{
+    height: 100%;
+}
+
+.PageWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100%;
+    min-width: 500px;
+}
+
+header{
+    display: none !important;
+}
+
+section{
+    flex-grow: 1;
+    flex-shrink: 0;
+    width: 100%;
+    margin: 0;
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+}
+
+footer{
+    flex-shrink: 0;
+    display: flex !important;
+    align-items: center;
+    height: 140px;
+    padding: 0;
+
+}
+
+form{
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+form p label{
+    font-size: 20px;
+}
+
+form p input:not([type="submit"]), form p textarea{
+    font-size: 20px;
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+    color: #4c4c4c;;
+    height: 40px;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    transition: border-color .5s;
+    -webkit-transition: border-color .5s;
+    -moz-transition: border-color .5s;
+    -o-transition: border-color .5s;
+}
+
+    form p input:not([type="submit"]):focus, form p textarea:focus{
+                border: 2px solid lightskyblue;
+    }
+
+form p input#submit{
+        font-size: 20px;
+        border-radius: 4px;
+        color: #4c4c4c;;
+        height: 40px;
+        border: none;
+        background-color: lightskyblue;
+        transition: background-color .5s;
+        -webkit-transition: background-color .5s;
+        -moz-transition: background-color .5s;
+        -o-transition: background-color .5s;
+    }
+
+        form p input#submit:hover{
+            background-color: #6ca4c8;
+            cursor: pointer;
+        }
+
+form p textarea{
+    min-height: 150px !important;
+    resize: vertical;
+    max-height: 300px;
+}
+
+.error-span{
+    position: absolute;
+    font-size: 20px;
+    display: inline-flex;
+    height: 150px;
+    align-items: center;
+    margin-left: 15px;
+    min-width: 160px;
+    color: #f65858;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.centered-text{
+    text-align: center;
+}
+
+.top-margin{
+    margin-top: 30px;
+}
+
+.vertical-center-row {
+    display: table-cell;
+    vertical-align: middle;
+    background-color: green;
+}
+
+/*.register-form-wrapper {*/
+    /*display: inline-block;*/
+    /*vertical-align: middle;*/
+    /*width: 100%;*/
+    /*padding-top: 100px;*/
+/*}*/
+
+    /*.register-form-wrapper h1{*/
+        /*width: 30%;*/
+        /*font-size: 26px;*/
+        /*text-align: center;*/
+        /*margin: auto;*/
+        /*margin-bottom: 25px;*/
+    /*}*/
+
+    /*.register-form-wrapper form{*/
+        /*width: 35%;*/
+        /*margin: auto;*/
+    /*}*/
+    /**/
+    /*.register-form-wrapper form p:not(.submit-button){*/
+        /*margin-bottom: 10px;*/
+    /*}*/
+    /**/
+
+        /*.register-form-wrapper form textarea{*/
+            /*resize: vertical;*/
+            /*height: 160px;*/
+            /*max-height: 500px;*/
+        /*}*/
+
+        /*.register-form-wrapper form input:not([type="submit"]):focus, .register-form-wrapper form textarea:focus{*/
+            /*border: 2px solid lightskyblue;*/
+        /*}*/
+
+    /*.register-form-wrapper form input.error{*/
+        /*background-color: #f65858;*/
+    /*}*/
+
+
+
+    /**/
+    /*.register-form-wrapper form label{*/
+        /*display: inline-block;*/
+        /*width: 22.5%;*/
+        /*margin-right: 2.5%;*/
+        /*vertical-align: middle;*/
+        /*font-size: 20px;*/
+        /*text-align: right;*/
+    /*}*/
+    /**/
+    /*.register-form-wrapper form span{*/
+        /*vertical-align: middle;*/
+        /*font-size: 16px;*/
+        /*color: #4c4c4c;*/
+        /*border-radius: 4px;*/
+        /*margin-left: 1%;*/
+        /*display: inline-block !important;*/
+        /*height: 40px;*/
+        /*line-height: 40px;*/
+        /*padding: 0 5px;*/
+        /*box-sizing: border-box;*/
+        /*position: absolute;*/
+    /*}*/
+    /**/
+    /**/
+    

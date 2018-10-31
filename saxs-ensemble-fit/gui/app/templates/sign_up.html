@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/sign_up.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/bootstrap.min.css') }}">
+    <script src="{{ url_for('static',filename='scripts/app/sign_up.js') }}"></script>
+    <script src="{{ url_for('static',filename='scripts/bootstrap.min.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="form-wrapper container">
+        <form name="register_form" class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6" action="{{ url_for('userManagement.sign_up') }}" method="post" id="register_form">
+            {{ r_form.hidden_tag() }}
+            <input id="username_hid_inp" type="hidden" value="{{ username }}">
+            <input id="email_hid_inp" type="hidden" value="{{ email }}">
+            <p class="row">
+                {{ r_form.username.label(class="col-xs-offset-0 col-xs-4 col-sm-offset-1 col-sm-3") }}{{ r_form.username(class="col-xs-8 col-sm-7")}}
+                {% for error in r_form.username.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </p>
+            <p class="row">
+                {{ r_form.email.label(class="col-xs-offset-0 col-xs-4 col-sm-offset-1 col-sm-3") }}{{ r_form.email(class="col-xs-8 col-sm-7")}}
+                {% for error in r_form.email.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </p>
+            <p class="row centered-text top-margin">
+                {{ r_form.comment.label(class=" col-xs-offset-0 col-xs-12 col-sm-offset-1 col-sm-10") }}
+            </p>
+            <p class="row">
+                {{ r_form.comment(class="col-xs-offset-0 col-xs-12 col-sm-offset-1 col-sm-10")}}
+                {% for error in r_form.comment.errors %}
+                    <span class="error-span">{{ error }}</span>
+                {% endfor %}
+            </p>
+            <p class="submit-button row">
+                {{ r_form.submit(class="col-xs-offset-0 col-xs-12 col-sm-offset-1 col-sm-10") }}
+            </p>
+        </form>
+    </div>
+{% endblock %}

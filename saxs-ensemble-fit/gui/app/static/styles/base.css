@@ -1,0 +1,185 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+    background-color: whitesmoke;
+}
+
+*:focus {
+    outline: none;
+}
+
+.PageWrapper {
+    /*min-width: 1400px;*/
+    margin-left: auto;
+    margin-right: auto;
+    color: #4c4c4c;
+    position: relative;
+}
+
+header {
+    background-color: #4c4c4c;
+    width: 100%;
+    font-size: 0;
+    height: 60px;
+    position: relative;
+}
+
+    header a.user_management_link{
+        color: #4c4c4c;
+        text-decoration: none;
+        display: inline-block;
+        margin: 15px 0 15px 2.5%;
+        font-size: 20px;
+        background-color: lightskyblue;
+        padding: 3px 10px;
+        border-radius: 4px;
+        box-sizing: border-box;
+        height: 30px;
+        transition: background-color .5s;
+        -webkit-transition: background-color .5s;
+        -moz-transition: background-color .5s;
+        -o-transition: background-color .5s;
+    }
+    
+        header a.user_management_link:hover{
+            background-color: #6ca4c8;
+            cursor: pointer;
+        }
+
+    header .signout_greetings-wrapper {
+        position:absolute;
+        right: 2.5%;
+        display: inline-block;
+    }
+
+        header .signout_greetings-wrapper a.sign_out{
+            color: #4c4c4c;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            background-color: #f65858;
+            padding: 3px 10px;
+            border-radius: 4px;
+            box-sizing: border-box;
+            height: 30px;
+            vertical-align: middle;
+            transition: background-color .5s;
+            -webkit-transition: background-color .5s;
+            -moz-transition: background-color .5s;
+            -o-transition: background-color .5s;
+        }
+
+            header .signout_greetings-wrapper a.sign_out:hover{
+                background-color: #dc3f3f;
+                cursor: pointer;
+            }
+
+        header .signout_greetings-wrapper span.greetings{
+            font-size: 20px;
+            color: whitesmoke;
+            display: inline-block;
+            margin: 15px 15px;
+            line-height: 30px;
+            vertical-align: middle;
+        }
+
+
+section {
+    width: 95%;
+    margin:10px auto;
+    font-size: 0;
+    position: relative;
+}
+
+    section .flash-message{
+        font-size: 20px;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 4px;
+        margin: 20px 0;
+    }
+
+        section .flash-message.error{
+            background-color: #f65858;
+        }
+
+        section .flash-message.info{
+            background-color: lightblue;
+        }
+
+    section .error-page-content{
+        font-size: 20px;
+        width: 100%;
+        height: 65%;
+        text-align: center;
+    }
+
+        section .error-page-content img{
+            vertical-align: middle;
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        section .error-page-content span{
+            vertical-align: middle;
+            display: inline-block;
+        }
+
+            section .error-page-content span:after{
+                content: "";
+                vertical-align: middle;
+                height: 100%;
+                display: inline-block;
+            }
+
+footer {
+    width: 100%;
+    padding: 100px 0;
+}
+
+    footer .footer-content-wrapper{
+        margin: auto;
+        width: 30%;
+        text-align: center;
+    }
+
+        footer .footer-content-wrapper *{
+            display: inline-block;
+            font-size: 14px;
+            color: #8d8d8d;
+            vertical-align: middle;
+            margin-right: 1%;
+        }
+
+        footer .footer-content-wrapper img{
+            height: 22px;
+        }
+
+            footer .footer-content-wrapper img:hover{
+                cursor: pointer;
+            }
+
+        footer .footer-content-wrapper span.mail-address{
+            color: #dd4b39;
+            display: none;
+        }
+
+        footer .footer-content-wrapper div{
+            margin: 4px 0 0;
+            display: block;
+        }
+
+            footer .footer-content-wrapper div a{
+                color: #79b220;
+                text-decoration: none;
+                margin: 0;
+                transition: color .5s;
+                -webkit-transition: color .5s;
+                -moz-transition: color .5s;
+                -o-transition: color .5s;
+            }
+
+                footer .footer-content-wrapper div a:hover{
+                    color: #608e19;
+                }
