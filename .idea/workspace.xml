@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6428605e-5ef0-4040-9a7b-6a3a786f24cf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/ensemble-fit_docker_version.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ensemble-fit_docker_version.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SAXS/file_for_pymol.pml" beforeDir="false" afterPath="$PROJECT_DIR$/SAXS/file_for_pymol.pml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SAXS/mod01.pdb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/SAXS/mod01.pdb.dat" beforeDir="false" />
@@ -71,7 +66,6 @@
       <change beforePath="$PROJECT_DIR$/SAXS/result" beforeDir="false" afterPath="$PROJECT_DIR$/SAXS/result" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SAXS/result.pdb.dat" beforeDir="false" afterPath="$PROJECT_DIR$/SAXS/result.pdb.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SAXS/testing_ensamble_krabik.py" beforeDir="false" afterPath="$PROJECT_DIR$/SAXS/testing_ensamble_krabik.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saxs-ensamble-fit" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/saxs-ensemble-fit/core/C12Map.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/saxs-ensemble-fit/core/C12Map.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saxs-ensemble-fit/core/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/saxs-ensemble-fit/core/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saxs-ensemble-fit/core/split-bobyqua-reduced.pl" beforeDir="false" afterPath="$PROJECT_DIR$/saxs-ensemble-fit/core/split-bobyqua-reduced.pl" afterDir="false" />
@@ -121,13 +115,6 @@
       <change beforePath="$PROJECT_DIR$/saxs-ensemble-fit/util/div10.pl" beforeDir="false" afterPath="$PROJECT_DIR$/saxs-ensemble-fit/util/div10.pl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saxs-ensemble-fit/util/div4pi.pl" beforeDir="false" afterPath="$PROJECT_DIR$/saxs-ensemble-fit/util/div4pi.pl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saxs-ensemble-fit/util/split-model.pl" beforeDir="false" afterPath="$PROJECT_DIR$/saxs-ensemble-fit/util/split-model.pl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/crystallography_pdb_alignment.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ensemble.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/make_saxs_curves.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/make_saxs_curves.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/methods_saxs/ensemble.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/methods_saxs/ensemble.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/run_script_ensemble" beforeDir="false" afterPath="$PROJECT_DIR$/src/run_script_ensemble" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/saxs_experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/saxs_experiment.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -170,13 +157,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="ini" value="101" />
+          <entry key="ini" value="102" />
           <entry key="py" value="64" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Ini" value="101" />
+          <entry key="Ini" value="102" />
           <entry key="Python" value="64" />
         </counts>
       </usages-collector>
@@ -205,16 +192,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/config.ini">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+            <state relative-caret-position="390">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/saxs_experiment.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="194">
@@ -270,8 +257,8 @@
         <option value="$PROJECT_DIR$/src/run_script_ensemble" />
         <option value="$PROJECT_DIR$/src/methods_saxs/ensemble.py" />
         <option value="$PROJECT_DIR$/src/make_saxs_curves.py" />
-        <option value="$PROJECT_DIR$/src/config.ini" />
         <option value="$PROJECT_DIR$/src/saxs_experiment.py" />
+        <option value="$PROJECT_DIR$/src/config.ini" />
       </list>
     </option>
   </component>
@@ -456,10 +443,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="960" height="1053" extended-state="4" />
+    <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2116228" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10309829" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -503,13 +490,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/config.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/methods_saxs/gajoe.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1073" />
@@ -536,6 +516,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="259" column="68" selection-start-line="259" selection-start-column="68" selection-end-line="259" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
         </state>
       </provider>
     </entry>
