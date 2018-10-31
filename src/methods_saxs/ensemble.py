@@ -20,7 +20,7 @@ def make_experiment(all_files, tmpdir, verbose, verbose_logfile, path, mydirvari
     # RUN ensemble
     command = f'{path} -L -p {tmpdir}/pdbs/ensembles/ -n {len(all_files)} -m {tmpdir}/method/curve.modified.dat'
     if verbose == 3:
-        print(f'{Colors.OKBLUE} Command for ensemble fit \n {Colors.ENDC, comman} \n')
+        print(f'{Colors.OKBLUE} Command for ensemble fit \n {Colors.ENDC, command} \n')
     if verbose_logfile:
         logpipe = LogPipe(logging.DEBUG)
         logpipe_err = LogPipe(logging.ERROR)

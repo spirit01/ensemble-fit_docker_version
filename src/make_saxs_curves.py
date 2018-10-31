@@ -155,9 +155,9 @@ def make_crysol(all_files, path):
                 #    final_file.write(line)
                 #    final_file.write('#    q    intensity    error')
                 if line.startswith('  '):
-                    final_file.write(line.split('  ')[1] + '\t')
-                    final_file.write(line.split('  ')[2] + '\t')
-                    final_file.write(line.split('  ')[5])
+                    final_file.write(line.split(' ')[1] + '\t')
+                    final_file.write(line.split(' ')[2] + '\t')
+                    final_file.write(line.split(' ')[5])
                 else:
                     final_file.write('#' + line.rstrip() + '\n')
                     final_file.write('#    q    intensity    error' + '\n')

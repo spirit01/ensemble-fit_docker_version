@@ -88,7 +88,11 @@ class Run:
             for structure, weight in data:
                 logging.info(f'#result_structure: {structure}| result_weight: {weight}')
     def get_best_result(self):
-        return min(rmsd for rmsd, _, _ in self.results)
+        if self.results == []:
+            return 0
+        else:
+            print(self.results)
+            return min(rmsd for rmsd, _, _ in self.results)
 
 class SpecialFormatter(logging.Formatter):
     FORMATS = {logging.DEBUG : logging._STYLES['{'][0]("DEBUG: {message}"),
@@ -250,12 +254,12 @@ def final_statistic(runs, verbose):
     for number in rmsd:
         logging.info(f'|{number:5.3f}|')
 
-    indexes = [i for i, x in enumerate(rmsd) if x == min(rmsd)]
+    indices = [i for i, x in enumerate(rmsd) if x == min(rmsd)]
     if verbose == 2 or verbose == 1 or verbose == 3:
-        #TODO opravit *indexes
-        print('Best RMSD {:5.3f}, run {}'.format(min(rmsd), *indexes))
+        #TODO opravit *indices
+        print('Best RMSD {:5.3f}, run {}'.format(min(rmsd), *indices))
         print(f'RMSD = {np.mean(rmsd):.3f} ± {np.std(rmsd):.3f}')
-    logging.info('Best RMSD {:5.3f}, run {}'.format(min(rmsd), *indexes))
+    logging.info('Best RMSD {:5.3f}, run {}'.format(min(rmsd), *indices))
     logging.info(f'*****FINAL RMSD and STD| {np.mean(rmsd):5.3f}|{np.std(rmsd):5.3f}')
 
 def run_method(args, path, method):
