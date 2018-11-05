@@ -27,6 +27,7 @@ RUN make -C /home/ensemble-fit/core/
 RUN chmod u+x /home/ensemble-test/src/saxs_experiment.py
 RUN chmod u+x /home/ensemble-test/src/run_script_ensemble
 RUN chmod u+x /home/ensemble-test/src/make_saxs_curves.py
+
 #install MES
 RUN wget http://bl1231.als.lbl.gov/pickup/mes.tar -O /tmp/mes.tar
 RUN tar -xf /tmp/mes.tar -C /home/
@@ -34,17 +35,10 @@ RUN make clean -C /home/weights/
 RUN make -C /home/weights/
 
 #install GAJOE
-# You must download files and put them in dependences dictionary.
-# Visit: https://www.embl-hamburg.de/biosaxs/atsas-online/download.php
-# and download 2.8.4.openSUSE-42.
 # ATSAS-2.8.4-1.SUSE-42.x86_64.rpm extract to /dependences
 # and run
 COPY ./dependences/ATSAS-2.8.4-1.SUSE-42.x86_64.rpm /tmp/eom/
 RUN dnf -y install /tmp/eom/ATSAS-2.8.4-1.SUSE-42.x86_64.rpm
-
-#Examples of use
-#makes FOXs curves
-RUN /home/ensemble-test/src/make_saxs_curves.py -d /home/ensemble-test/examples_I/  --finaldir /home/ensemble-test/foxs_curves --makecurve foxs
 
 #Run experiment in /home/ensemble-test/src/
 #RUN /home/ensemble-test/src/run_script_ensemble -d /home/ensemble-test/foxs_curves/ -n 10 -k 5 -r 3 --experimentdata /home/ensemble-test/experimental_data/exp.dat --output /home/ensemble-test/results/ --preserve --verbose 3 --tolerance 1

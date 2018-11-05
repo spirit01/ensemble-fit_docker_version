@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="Docutils 0.15b.dev: http://docutils.sourceforge.net/" />
-<title>Ensemble</title>
+<title>Ensemble-fit</title>
 <meta name="date" content="2016-09-25" />
 <meta name="copyright" content="This document has been placed in the public domain." />
 <style type="text/css">
@@ -362,8 +362,8 @@ ul.auto-toc {
 </style>
 </head>
 <body>
-<div class="document" id="ensemble">
-<h1 class="title">Ensemble</h1>
+<div class="document" id="ensemble-fit">
+<h1 class="title">Ensemble-fit</h1>
 <table class="docinfo" frame="void" rules="none">
 <col class="docinfo-name" />
 <col class="docinfo-content" />
@@ -382,38 +382,109 @@ ul.auto-toc {
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#id1" id="id2">1&nbsp;&nbsp;&nbsp;Ensemble</a><ul class="auto-toc">
-<li><a class="reference internal" href="#what-is-ensemble" id="id3">1.1&nbsp;&nbsp;&nbsp;What is Ensemble?</a></li>
+<li><a class="reference internal" href="#dockerfile" id="id2">1&nbsp;&nbsp;&nbsp;Dockerfile</a></li>
+<li><a class="reference internal" href="#examples" id="id3">2&nbsp;&nbsp;&nbsp;Examples</a></li>
+<li><a class="reference internal" href="#ensemble" id="id4">3&nbsp;&nbsp;&nbsp;Ensemble</a><ul class="auto-toc">
+<li><a class="reference internal" href="#what-is-ensemble" id="id5">3.1&nbsp;&nbsp;&nbsp;What is Ensemble?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#eom-gajoe" id="id4">2&nbsp;&nbsp;&nbsp;EOM &amp; GAJOE</a><ul class="auto-toc">
-<li><a class="reference internal" href="#what-is-eom-and-gajoe" id="id5">2.1&nbsp;&nbsp;&nbsp;What is EOM and GAJOE?</a></li>
-<li><a class="reference internal" href="#technical-parametrs" id="id6">2.2&nbsp;&nbsp;&nbsp;Technical Parametrs</a></li>
-<li><a class="reference internal" href="#parametrs-for-script" id="id7">2.3&nbsp;&nbsp;&nbsp;Parametrs for script</a></li>
+<li><a class="reference internal" href="#eom-gajoe" id="id6">4&nbsp;&nbsp;&nbsp;EOM &amp; GAJOE</a><ul class="auto-toc">
+<li><a class="reference internal" href="#what-is-eom-and-gajoe" id="id7">4.1&nbsp;&nbsp;&nbsp;What is EOM and GAJOE?</a></li>
+<li><a class="reference internal" href="#technical-parametrs" id="id8">4.2&nbsp;&nbsp;&nbsp;Technical Parametrs</a></li>
+<li><a class="reference internal" href="#parametrs-for-script" id="id9">4.3&nbsp;&nbsp;&nbsp;Parametrs for script</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#examples" id="id8">3&nbsp;&nbsp;&nbsp;Examples</a></li>
+<li><a class="reference internal" href="#id1" id="id10">5&nbsp;&nbsp;&nbsp;Examples</a></li>
 </ul>
 </div>
 <p>This manual is for testing script, which compare ensemble and several other methods: EOM, MultiFoxs a MES.
 The following sections briefly describe the testing script and detail the steps required to run the program. File input and output are explained.</p>
-<div class="section" id="id1">
-<h1><a class="toc-backref" href="#id2">1&nbsp;&nbsp;&nbsp;Ensemble</a></h1>
+<div class="section" id="dockerfile">
+<h1><a class="toc-backref" href="#id2">1&nbsp;&nbsp;&nbsp;Dockerfile</a></h1>
+<p>Program <strong>ensemble-fit</strong> and testing script are available in docker image.</p>
+<p>Download all IMP 2.9.0. libraries for Fedora 28 from <a class="reference external" href="https://integrativemodeling.org/download-linux.html">https://integrativemodeling.org/download-linux.html</a> with</p>
+<ul class="simple">
+<li>wget <a class="reference external" href="https://integrativemodeling.org/2.9.0/download/IMP-2.9.0-1.fc28.x86_64.rpm">https://integrativemodeling.org/2.9.0/download/IMP-2.9.0-1.fc28.x86_64.rpm</a> -P {your_path}/ensemble-fit_docker_version/dependences/IMP/</li>
+<li>wget <a class="reference external" href="https://integrativemodeling.org/2.9.0/download/IMP-python3-2.9.0-1.fc28.x86_64.rpm">https://integrativemodeling.org/2.9.0/download/IMP-python3-2.9.0-1.fc28.x86_64.rpm</a> -P {your_path}/ensemble-fit_docker_version/dependences/IMP/</li>
+<li>wget <a class="reference external" href="https://integrativemodeling.org/2.9.0/download/IMP-mpich-2.9.0-1.fc28.x86_64.rpm">https://integrativemodeling.org/2.9.0/download/IMP-mpich-2.9.0-1.fc28.x86_64.rpm</a> -P {your_path}/ensemble-fit_docker_version/dependences/IMP/</li>
+<li>wget <a class="reference external" href="https://integrativemodeling.org/2.9.0/download/IMP-devel-2.9.0-1.fc28.x86_64.rpm">https://integrativemodeling.org/2.9.0/download/IMP-devel-2.9.0-1.fc28.x86_64.rpm</a> -P {your_path}/ensemble-fit_docker_version/dependences/IMP/</li>
+</ul>
+<p>Program <strong>GAJOE</strong> can donwload only with permision and create an account. If you want to use GAJOE in you analysis download</p>
+<blockquote>
+<ul class="simple">
+<li>ATSAS from <a class="reference external" href="https://www.embl-hamburg.de/biosaxs/download.html">https://www.embl-hamburg.de/biosaxs/download.html</a> in version 2.8.4. for openSUSE-42</li>
+<li>ATSAS-2.8.4-1.SUSE-42.x86_64.rpm to {your_path}/ensemble-fit_docker_version/dependences/</li>
+</ul>
+</blockquote>
+<p><strong>Verify that you have a docker running and create docker image:</strong></p>
+<ul class="simple">
+<li>sudo docker build -t ensamble .</li>
+</ul>
+<p>and <strong>run docker image:</strong></p>
+<ul class="simple">
+<li>sudo docker run --rm -ti ensamble bash</li>
+</ul>
+</div>
+<div class="section" id="examples">
+<h1><a class="toc-backref" href="#id3">2&nbsp;&nbsp;&nbsp;Examples</a></h1>
+<dl class="docutils">
+<dt>Script for SAXS curve is in make_saxs_curves with several switch</dt>
+<dd><ul class="first last simple">
+<li>-d directory with pdb files</li>
+<li>--finaldir final directory</li>
+<li>--makecurve choose method for SAXS curve (foxs, crysol)</li>
+</ul>
+</dd>
+<dt>Makes SAXS curve with software Fox in ensemble image:</dt>
+<dd><ul class="first simple">
+<li>/home/ensemble-test/src/make_saxs_curves.py -d /home/ensemble-test/examples_I/  --finaldir /home/ensemble-test/foxs_curves --makecurve foxs</li>
+</ul>
+<p class="last">Makes SAXS curve with software Crysol in ensemble image:
+- RUN /home/ensemble-test/src/make_saxs_curves.py -d /home/ensemble-test/examples_I/  --finaldir /home/ensemble-test/foxs_curves --makecurve crysol</p>
+</dd>
+</dl>
+<p>Script for testing method:</p>
+<p>saxs_experiment runs ONE method with several options.</p>
+<ul class="simple">
+<li>/home/ensemble-test/src/saxs_experiment -d /home/ensemble-test/foxs_curves/ -n 10 -k 5 -r 3 --experimentdata /home/ensemble-test/experimental_data/exp.dat --output /home/ensemble-test/results/ --preserve --verbose 3 --tolerance 1</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>-d directory with pdbs and foxs files</li>
+<li>-n set with pdb files</li>
+<li>-k selection with n set</li>
+<li>-r number of repetition</li>
+<li>--tolerance</li>
+<li>--experimentdata file with experimental dats</li>
+<li>--output directory with results, it MUST exists before</li>
+<li>--preserve</li>
+<li>--verbose</li>
+<li>---verbose_logfile</li>
+<li>-method choose method for testing, method must be ON in config.ini</li>
+</ul>
+</blockquote>
+<p>run_script_ensemble can runs all method and compares results, results are collected in a logs files</p>
+<ul class="simple">
+<li>/home/ensemble-test/src/run_script_ensemble -d /home/ensemble-test/foxs_curves/ -n 10 -k 5 -r 3 --experimentdata /home/ensemble-test/experimental_data/exp.dat --output /home/ensemble-test/results/ --preserve --verbose 3 --tolerance 1</li>
+</ul>
+</div>
+<div class="section" id="ensemble">
+<h1><a class="toc-backref" href="#id4">3&nbsp;&nbsp;&nbsp;Ensemble</a></h1>
 <div class="section" id="what-is-ensemble">
-<h2><a class="toc-backref" href="#id3">1.1&nbsp;&nbsp;&nbsp;What is Ensemble?</a></h2>
+<h2><a class="toc-backref" href="#id5">3.1&nbsp;&nbsp;&nbsp;What is Ensemble?</a></h2>
 </div>
 </div>
 <div class="section" id="eom-gajoe">
-<h1><a class="toc-backref" href="#id4">2&nbsp;&nbsp;&nbsp;EOM &amp; GAJOE</a></h1>
+<h1><a class="toc-backref" href="#id6">4&nbsp;&nbsp;&nbsp;EOM &amp; GAJOE</a></h1>
 <div class="section" id="what-is-eom-and-gajoe">
-<h2><a class="toc-backref" href="#id5">2.1&nbsp;&nbsp;&nbsp;What is EOM and GAJOE?</a></h2>
+<h2><a class="toc-backref" href="#id7">4.1&nbsp;&nbsp;&nbsp;What is EOM and GAJOE?</a></h2>
 </div>
 <div class="section" id="technical-parametrs">
-<h2><a class="toc-backref" href="#id6">2.2&nbsp;&nbsp;&nbsp;Technical Parametrs</a></h2>
+<h2><a class="toc-backref" href="#id8">4.2&nbsp;&nbsp;&nbsp;Technical Parametrs</a></h2>
 <p>Testing script use python3-3.6.6-1</p>
 </div>
 <div class="section" id="parametrs-for-script">
-<h2><a class="toc-backref" href="#id7">2.3&nbsp;&nbsp;&nbsp;Parametrs for script</a></h2>
+<h2><a class="toc-backref" href="#id9">4.3&nbsp;&nbsp;&nbsp;Parametrs for script</a></h2>
 <blockquote>
 <p>-d or --dir is directory with pdb files
 --output is name for directory with results</p>
@@ -429,8 +500,8 @@ The following sections briefly describe the testing script and detail the steps 
 </blockquote>
 </div>
 </div>
-<div class="section" id="examples">
-<h1><a class="toc-backref" href="#id8">3&nbsp;&nbsp;&nbsp;Examples</a></h1>
+<div class="section" id="id1">
+<h1><a class="toc-backref" href="#id10">5&nbsp;&nbsp;&nbsp;Examples</a></h1>
 <p>-d ../test_directory/ -n 10 -k 5 -r 3 --tolerance 0 --verbose 3 --preserve --experimentdata ../data/exp.dat --output ../output</p>
 </div>
 </div>
