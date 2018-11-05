@@ -84,7 +84,6 @@ saxs_experiment runs ONE method with several options.
 
 run_script_ensemble can runs all method and compares results, results are collected in a logs files
 
-- /home/ensemble-test/src/run_script_ensemble -d /home/ensemble-test/foxs_curves/ -n 10 -k 5 -r 3 --experimentdata /home/ensemble-test/experimental_data/exp.dat --output /home/ensemble-test/results/ --preserve --verbose 3 --tolerance 1
 
 Ensemble
 ========
@@ -120,5 +119,11 @@ Parametrs for script
 
 Examples
 ========
+Run all experimetns:
 
--d ../test_directory/ -n 10 -k 5 -r 3 --tolerance 0 --verbose 3 --preserve --experimentdata ../data/exp.dat --output ../output
+In /home/ensemble-test/src/ run all method from cinfig.ini:
+./run_script_ensemble -d ../foxs_curves/ -n 10 -k 5 -r 3 --tolerance 0 --verbose 3 --preserve --experimentdata ../experimental_data/exp.dat --output ../results/
+
+Run just one method, for example ensemble-fit. You must turn on ensemble-fit method in config.ini.
+
+./saxs_experiment.py -d ../foxs_curves/ -n 10 -k 5 -r 3 --tolerance 0 --verbose 3 --preserve --experimentdata ../experimental_data/exp.dat --output ../results/ --method ensemble
