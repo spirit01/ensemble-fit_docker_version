@@ -1,23 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import configparser
+import importlib
+import logging
 import os
+import pathlib
+import pkgutil
 import random
 import re
 import shutil
 import sys
 import tempfile
+import threading
 from argparse import ArgumentParser
 from os import listdir
+from time import localtime, strftime
+
 import numpy as np
 from adderror import adderror
-import logging
-from time import localtime, strftime
 from comparison import compare_ensembles
-import threading
-import pkgutil
-import importlib
-import pathlib
-import configparser
 
 
 class Colors:
@@ -29,6 +30,7 @@ class Colors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
 
 class LogPipe(threading.Thread):
 
@@ -61,6 +63,7 @@ class LogPipe(threading.Thread):
         """
         os.close(self.fdWrite)
 
+
 class Run:
     def __init__(self, all_files, selected_files, weights, run, method):
         # experiment
@@ -87,6 +90,7 @@ class Run:
             logging.info(f'###result_RMSD: {sumrmsd:5.3f} \n###result_CHI2: {chi2:5.3f}')
             for structure, weight in data:
                 logging.info(f'#result_structure: {structure}| result_weight: {weight}')
+
     def get_best_result(self):
         if self.results == []:
             return 0
@@ -94,17 +98,17 @@ class Run:
             print(self.results)
             return min(rmsd for rmsd, _, _ in self.results)
 
+
 class SpecialFormatter(logging.Formatter):
-    FORMATS = {logging.DEBUG : logging._STYLES['{'][0]("DEBUG: {message}"),
-           logging.ERROR : logging._STYLES['{'][0]("{module} : {lineno}: {message}"),
-           logging.INFO : logging._STYLES['{'][0]("{message}"),
-           'DEFAULT' : logging._STYLES['{'][0](" {message}")}
+    FORMATS = {logging.DEBUG: logging._STYLES['{'][0]("DEBUG: {message}"),
+               logging.ERROR: logging._STYLES['{'][0]("{module} : {lineno}: {message}"),
+               logging.INFO: logging._STYLES['{'][0]("{message}"),
+               'DEFAULT': logging._STYLES['{'][0](" {message}")}
 
     def format(self, record):
         # Ugly. Should be better
         self._style = self.FORMATS.get(record.levelno, self.FORMATS['DEFAULT'])
         return logging.Formatter.format(self, record)
-
 
 
 def set_argument():
@@ -119,36 +123,34 @@ def set_argument():
 
     parser.add_argument("-k", metavar='K', type=int,
                         dest="k_options",
-                        help="Number of possibility structure, must be less then selected files",
+                        help="Number of possibility structure from n structures, must be less then selected files",
                         required=True)
 
     parser.add_argument("-r", metavar='R', type=int,
-                        dest="repeat", help="Number of repetitions",
+                        dest="repeat", help="Number of repetitions all experiments",
                         default=1)
-    parser.add_argument("--verbose", type = int,
+    parser.add_argument("--verbose", type=int,
                         help="increase output verbosity, possible value 0, 1, 2, 3",
                         default=0)
 
-    parser.add_argument("--verbose_logfile", help="increase output verbosity",
-                       action="store_true")
-
+    parser.add_argument("--verbose_logfile", help="increase verbosity in logfile",
+                        action="store_true")
 
     parser.add_argument("--tolerance", type=float, dest="tolerance",
-                        help="pessimist (0) or optimist (0 < x <1) result",
+                        help="pessimist (0) or optimist (0 < x <1) result, tolerance value affects chi^2. ",
                         default=0)
 
     parser.add_argument("--preserve", help="preserve temporary directory",
                         action="store_true")
 
-    parser.add_argument("--method", help="choose method",
+    parser.add_argument("--method", help="choose method for analysis",
                         choices=get_saxs_methods(), required=True)
 
     parser.add_argument("--output", help="choose directory to save output",
-                        metavar = "DIR", dest="output", required=True)
+                        metavar="DIR", dest="output", required=True)
 
-
-    parser.add_argument("--experimentdata", help="choose file for adderror",
-                        metavar = "DIR", dest="experimentdata",required=True)
+    parser.add_argument("--experimentdata", help="choose experiment pattern for mixing curve with script adderror",
+                        metavar="DIR", dest="experimentdata", required=True)
 
     return parser.parse_args()
 
@@ -193,6 +195,7 @@ def print_parameters_verbose(args, list_pdb_file, all_files):
     print('\n')
     print('-------------------------------------------')
 
+
 def prepare_directory(tmpdir):
     pathlib.Path(f'{tmpdir}/pdbs').mkdir(parents=True, exist_ok=True)
     pathlib.Path(f'{tmpdir}/dats').mkdir(parents=True, exist_ok=True)
@@ -236,7 +239,8 @@ def process_result(tolerance, result_chi_structure_weights, run, mydirvariable):
         result_weights = [weight for _, weight in names_and_weights]
         if float(chi2) <= maximum:
             os.chdir(mydirvariable)
-            weighted_rmsd = compare_ensembles([mydirvariable + x + '.pdb' for x in run.selected_files], result_files, run.weights, result_weights)
+            weighted_rmsd = compare_ensembles([mydirvariable + x + '.pdb' for x in run.selected_files], result_files,
+                                              run.weights, result_weights)
             all_results.append((weighted_rmsd, chi2, names_and_weights))
     run.results = all_results
     return run
@@ -256,11 +260,12 @@ def final_statistic(runs, verbose):
 
     indices = [i for i, x in enumerate(rmsd) if x == min(rmsd)]
     if verbose == 2 or verbose == 1 or verbose == 3:
-        #TODO opravit *indices
+        # TODO opravit *indices
         print('Best RMSD {:5.3f}, run {}'.format(min(rmsd), *indices))
         print(f'RMSD = {np.mean(rmsd):.3f} ± {np.std(rmsd):.3f}')
     logging.info('Best RMSD {:5.3f}, run {}'.format(min(rmsd), *indices))
     logging.info(f'*****FINAL RMSD and STD| {np.mean(rmsd):5.3f}|{np.std(rmsd):5.3f}')
+
 
 def run_method(args, path, method):
     all_runs = []
@@ -269,7 +274,7 @@ def run_method(args, path, method):
         logging.info(f'Task {i}')
         logging.info(f'#Working directory: {tmpdir}')
         list_pdb_file = find_pdb_file(args.mydirvariable)
-        if args.verbose ==  3 or args.verbose == 2:
+        if args.verbose == 3 or args.verbose == 2:
             print('====================================================')
             print(f'{Colors.OKGREEN} RUN {i+1}/{args.repeat} \n {Colors.ENDC} \n')
         all_files = [x.split('.')[0] for x in random.sample(list_pdb_file, args.n_files)]
@@ -278,7 +283,7 @@ def run_method(args, path, method):
         # copy to dats
         sample = np.random.dirichlet(np.ones(args.k_options), size=1)[0]
         weights = np.round(np.random.multinomial(1000, sample) / 1000, 3)
-        files_and_weights = list(zip(selected_files,weights))
+        files_and_weights = list(zip(selected_files, weights))
         logging.info(f'#Selected_files \n')
         for file1, weight1 in files_and_weights:
             logging.info(f'#structure {file1} | weight {weight1:5.3f}')
@@ -307,6 +312,8 @@ def run_method(args, path, method):
         logging.info(f'\n=============================\n')
 
     final_statistic(all_runs, args.verbose)
+
+
 def check_binary():
     if os.path.exists(f'{os.getcwd()}/config.ini'):
         return True
@@ -314,8 +321,10 @@ def check_binary():
         print('Config file does not exist!')
     return False
 
+
 def get_saxs_methods():
     return list(m.name for m in pkgutil.iter_modules([config['SOURCE_METHODS']['path']]))
+
 
 if __name__ == '__main__':
     config = configparser.ConfigParser()

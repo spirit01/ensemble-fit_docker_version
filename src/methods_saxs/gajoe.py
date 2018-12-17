@@ -1,19 +1,23 @@
+#Script must have these three parts:
 # prepare_data()
 # make_experiment()
 # collect_result()
+import logging
 import re
 import shutil
 import subprocess
 import sys
+
 import fortranformat as ff
-import logging
 from saxs_experiment import LogPipe
-import os
+
 
 def prepare_data(all_files, tmpdir, mydirvariable):
     for file in all_files:  # not strict format for pdbs file
         shutil.copy(f'{mydirvariable}/{file}.pdb', f'{tmpdir}/pdbs/')
         shutil.copy(f'{mydirvariable}/{file}.dat', f'{tmpdir}/dats/')
+
+
 def make_experiment(all_files, tmpdir, verbose, verbose_logfile, path, mydirvariable):
     # Angular axis m01000.sax             Datafile m21000.sub         21-Jun-2001
     # .0162755E+00 0.644075E+03 0.293106E+02

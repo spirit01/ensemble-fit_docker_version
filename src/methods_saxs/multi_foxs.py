@@ -1,12 +1,14 @@
+# Script must have these three parts:
 # prepare_data()
 # make_experiment()
 # collect_result()
 import logging
+import os
 import re
 import shutil
 import subprocess
 import sys
-import os
+
 from saxs_experiment import LogPipe
 
 
@@ -22,23 +24,23 @@ def make_experiment(all_files, tmpdir, verbose, verbose_logfile, path, mydirvari
     if verbose_logfile:
         logpipe = LogPipe(logging.DEBUG)
         logpipe_err = LogPipe(logging.DEBUG)
-        #call = subprocess.
+        # call = subprocess.
         call = subprocess.run([path, f'{tmpdir}/method/curve.modified.dat', *files_for_multifoxs
-                               ,], cwd=f'{tmpdir}/results/',
+                                  , ], cwd=f'{tmpdir}/results/',
                               stdout=logpipe, stderr=logpipe_err)
         logpipe.close()
         logpipe_err.close()
     else:
         call = subprocess.run([path, f'{tmpdir}/method/curve.modified.dat',
-                               *files_for_multifoxs], cwd=f'{tmpdir}/results/')#,
-                           #   stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                               *files_for_multifoxs], cwd=f'{tmpdir}/results/')  # ,
+        #   stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if call.returncode:  # multifoxs doesn't get right returnvalue
         print(f'ERROR: multifoxs failed', file=sys.stderr)
         logging.error(f'Multifoxs failed, {call.returncode}')
         sys.exit(1)
 
-        # Process with result from Multi_foxs
 
+# Process with result from Multi_foxs
 
 def collect_results(tmpdir, all_files):
     multifoxs_files = []

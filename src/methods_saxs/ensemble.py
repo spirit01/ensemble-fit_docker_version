@@ -1,14 +1,16 @@
+#Script must have these three parts:
 # prepare_data()
 # make_experiment()
 # collect_result()
 
+import logging
+import pathlib
 import shutil
 import subprocess
 import sys
-import logging
-from saxs_experiment import LogPipe
-import pathlib
+
 from saxs_experiment import Colors
+from saxs_experiment import LogPipe
 
 
 def prepare_data(all_files, tmpdir, mydirvariable):
@@ -16,6 +18,8 @@ def prepare_data(all_files, tmpdir, mydirvariable):
 
     for i, file in enumerate(all_files, start=1):
         shutil.copy(f'{mydirvariable}/{file}.pdb', f'{tmpdir}/pdbs/ensembles/{i:02d}.pdb')
+
+
 def make_experiment(all_files, tmpdir, verbose, verbose_logfile, path, mydirvariable):
     # RUN ensemble
     command = f'{path} -L -p {tmpdir}/pdbs/ensembles/ -n {len(all_files)} -m {tmpdir}/method/curve.modified.dat'

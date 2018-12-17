@@ -1,18 +1,23 @@
+#Script must have these three parts:
 # prepare_data()
 # make_experiment()
 # collect_result()
+import logging
 import re
 import shutil
 import subprocess
 import sys
+
 import fortranformat as ff
-import logging
 from saxs_experiment import LogPipe
+
 
 def prepare_data(all_files, tmpdir, method, verbose_logfile):
     for file in all_files:  # not strict format for pdbs file
         shutil.copy(file, f'{tmpdir}/pdbs/')
         shutil.copy(file + '.dat', f'{tmpdir}/dats/')
+
+
 def make_experiment(all_files, tmpdir, verbose, verbose_logfile, method):
     # Angular axis m01000.sax             Datafile m21000.sub         21-Jun-2001
     # .0162755E+00 0.644075E+03 0.293106E+02
@@ -80,7 +85,7 @@ def make_experiment(all_files, tmpdir, verbose, verbose_logfile, method):
 
 
 def collect_results(tmpdir, all_files):
-    # process results from gajoe (/GAOO1/curve_1/
+    # process results from gajoe /GAOO1/curve_1/
     chi2 = None
     structure_weight = []
     m = re.compile('^\s*\d+\)')
