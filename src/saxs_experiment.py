@@ -95,7 +95,6 @@ class Run:
         if self.results == []:
             return 0
         else:
-            print(self.results)
             return min(rmsd for rmsd, _, _ in self.results)
 
 
@@ -315,6 +314,7 @@ def run_method(args, path, method):
 
 
 def check_binary():
+    print(os.getcwd())
     if os.path.exists(f'{os.getcwd()}/config.ini'):
         return True
     else:
@@ -327,6 +327,7 @@ def get_saxs_methods():
 
 
 if __name__ == '__main__':
+    os.chdir('/home/ensemble-test/')
     config = configparser.ConfigParser()
     config.read(f'{os.getcwd()}/config.ini')
 

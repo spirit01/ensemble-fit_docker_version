@@ -86,6 +86,7 @@ def run_script(method, args, path, verbose_logfile, verbose):
 
 
 def check_binary():
+    print(os.getcwd())
     if os.path.exists(f'{os.getcwd()}/config.ini'):
         return True
     else:
@@ -114,6 +115,9 @@ def get_saxs_methods(config):
 
 
 def main():
+    #it is nessesary to set working directory for running in ensemble image.
+    # Without this line working directory is only /.
+    os.chdir('/home/ensemble-test/')
     config = configparser.ConfigParser()
     config.read(f'{os.getcwd()}/config.ini')
     if not check_binary():

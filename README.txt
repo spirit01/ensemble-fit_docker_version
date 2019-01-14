@@ -131,3 +131,14 @@ In /home/ensemble-test/src/ run all method from cinfig.ini:
 Run just one method, for example ensemble-fit. You must turn on ensemble-fit method in config.ini.
 
 ./saxs_experiment.py -d ../foxs_curves/ -n 10 -k 5 -r 3 --tolerance 0 --verbose 3 --preserve --experimentdata ../experimental_data/exp.dat --output ../results/ --method ensemble
+--------------------
+
+
+Run with pre-defined setting. There is automatical run_script_ensemble with pre-defined parametrs. It runs container, make experiments a exit.
+ docker run -it -v /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data:/home/data -v /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/src:/home/ensemble-test ensemble
+
+Run automatically run_script with your setting, make experiment and exit.
+docker run -it -v /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data:/home/data -v /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/src:/home/ensemble-test ensemble -d /home/data/foxs_curves/ -n 10 -k 5 -r 5 --experimentdata /home/data/experimental_data/exp.dat --output /home/ensemble-test/results/ --verbose 3
+
+Run interactive terminal in container.
+docker run -ti --entrypoint=/bin/bash -v /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data:/home/data -v /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/src:/home/ensemble-test ensemble
