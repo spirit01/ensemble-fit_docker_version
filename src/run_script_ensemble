@@ -100,10 +100,10 @@ def work_with_result(path, method):
     files = listdir(path)
     for line in files:
         with open(f'{path}/{line}') as file:
-            for line in file:
-                if line.startswith('*****FINAL RMSD'):
-                    rmsd.append(line.split('|')[1])
-                    std.append(line.split('|')[2])
+            for line1 in file:
+                if line1.startswith('*****FINAL RMSD'):
+                    rmsd.append(line1.split('|')[1])
+                    std.append(line1.split('|')[2])
 
     result_file = list(zip(method, rmsd, std))
     for method, rmsd, std in result_file:
@@ -115,7 +115,7 @@ def get_saxs_methods(config):
 
 
 def main():
-    #it is nessesary to set working directory for running in ensemble image.
+    # it is nessesary to set working directory for running in ensemble image.
     # Without this line working directory is only /.
     os.chdir('/home/ensemble-test/')
     config = configparser.ConfigParser()

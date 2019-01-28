@@ -10,6 +10,8 @@ import sys
 import tempfile
 import threading
 from argparse import ArgumentParser
+from functools import partial
+from multiprocessing import Pool
 
 
 class LogPipe(threading.Thread):
@@ -100,7 +102,8 @@ def check_directory_pdb_files(mydirvariable, final_directory):
         shutil.copy(f'{os.path.abspath(mydirvariable)}/{file}', final_directory)
 
 
-def make_foxs(all_files, path):
+def make_foxs(all_files):
+    path = glob.glob(os.path.join(os.getcwd(), '*'))
     for file in all_files:
         """
         if verbose_logfile:
@@ -124,7 +127,9 @@ def make_foxs(all_files, path):
 
 
 # TODO
-def make_crysol(all_files, path):
+def make_crysol(all_files):
+    path = glob.glob(os.path.join(os.getcwd(), '*'))
+
     # take an abinito's curve
     for file in all_files:
         """
@@ -175,7 +180,7 @@ def main():
         if not os.path.exists(args.finaldir):
             os.makedirs(args.finaldir)
         else:
-            print('Directory already exist')
+            print('Directory have been already exist!')
             sys.exit(1)
         check_directory_pdb_files(args.mydirvariable, args.finaldir)
         print(f'Directory with saxs curve is: {args.finaldir}')
@@ -184,17 +189,17 @@ def main():
         check_directory_pdb_files(args.mydirvariable, tmpdir)
         print('Directory with saxs curve is:', tmpdir)
         os.chdir(tmpdir)
-    # function_partial = partial(make_foxs, args.verbose_logfile)
-    # with  Pool(os.cpu_count()) as pool:
-    #      if args.makecurve=='foxs':
-    #          pool.map(make_foxs, glob.glob(os.path.join(os.getcwd(), '*')))
-    #      if args.makecurve=='crysol':
-    #         pool.map(make_crysol, glob.glob(os.path.join(os.getcwd(), '*')))
-    run_method(args.makecurve, config)
-    # if args.makecurve=='foxs':
+    function_partial = partial(make_foxs,)
+    with  Pool(os.cpu_count()) as pool:
+        if args.makecurve == 'foxs':
+            pool.map(make_foxs, )
+        if args.makecurve == 'crysol':
+            pool.map(make_crysol)#, glob.glob(os.path.join(os.getcwd(), '*')))
+            run_method(args.makecurve, config)
+    #if args.makecurve == 'foxs':
     #    if check_binary(args.makecurve, config):
     #        make_foxs(glob.glob(os.path.join(os.getcwd(), '*')))
-    # if args.makecurve == 'crysol':
+    #if args.makecurve == 'crysol':
     #    if check_binary(args.makecurve, config):
     #        make_crysol(glob.glob(os.path.join(os.getcwd(), '*')))
 

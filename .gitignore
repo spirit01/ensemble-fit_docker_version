@@ -1,0 +1,17 @@
+*.rpm
+*.tar.gz
+.idea/*
+./SAXS/*
+./finaldir/*
+./results_31_10/*
+./foxs_curves/*
+./crysol_curves/*
+./saxs-ensemble-fit/server/*
+./saxs-ensemble-fit/gui/*
+./saxs-ensemble-fit/loop-we/*
+./saxs-ensemble-fit/util/*
+./ATSAS*/
+./cleanup_docker.sh
+./src/.idea/*
+./src/__pycache__
+./dependences/ATSAS*

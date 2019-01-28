@@ -2,13 +2,15 @@
 # make_experiment()
 # collect_result()
 
+import logging
 import re
 import shutil
 import subprocess
 import sys
 from os import listdir
-import logging
+
 from saxs_experiment import LogPipe
+
 
 def prepare_data(all_files, tmpdir, mydirvariable):
     datas_files = []
@@ -27,6 +29,7 @@ def prepare_data(all_files, tmpdir, mydirvariable):
         shutil.copy(f'{mydirvariable}/{file}.pdb', f'{tmpdir}/pdbs/')
         shutil.copy(f'{mydirvariable}/{file}.dat', f'{tmpdir}/dats/')
         shutil.copy(f'{mydirvariable}/{file}.dat', f'{tmpdir}/method/')
+
 
 def make_experiment(all_files, tmpdir, verbose, verbose_logfile, path, mydirvariable):
     # Run MES
@@ -52,7 +55,6 @@ def make_experiment(all_files, tmpdir, verbose, verbose_logfile, path, mydirvari
                 logging.error(f'Script failed in method mes.')
                 sys.exit(1)
 
-
     if verbose_logfile:
         with open(f'{tmpdir}/method/result_mes', 'a') as file_mes:
             call = subprocess.run([path, f'{tmpdir}/method/filelist'],
@@ -64,13 +66,13 @@ def make_experiment(all_files, tmpdir, verbose, verbose_logfile, path, mydirvari
                                   cwd=f'{tmpdir}/method/',
                                   stdout=file_mes, stderr=subprocess.PIPE)
 
-
     if call.returncode:
         print(f'ERROR: mes failed', file=sys.stderr)
         logging.error(f'mes failed.')
         sys.exit(1)
     logpipe.close()
     logpipe_err.close()
+
 
 def collect_results(tmpdir, all_files):
     result = []
