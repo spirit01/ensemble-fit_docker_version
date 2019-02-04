@@ -12,9 +12,9 @@ RUN dnf -y install wget \
 
 # install IMP libraries
     COPY ./saxs-ensemble-fit/ /opt/ensemble-fit/
-    COPY ./dependences/IMP/*.rpm /tmp/IMP/
-    RUN dnf -y install /tmp/IMP/IMP-2.9*.rpm && \
-        dnf -y install /tmp/IMP/IMP-devel*.rpm && \
+    COPY ./dependences/IMP/ /tmp/
+    RUN dnf -y install /tmp/IMP-2.9*.rpm && \
+        dnf -y install /tmp/IMP-devel*.rpm && \
         dnf -y install eigen3-devel && \
         dnf -y install make && yum -y clean all
 
