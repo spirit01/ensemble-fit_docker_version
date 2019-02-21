@@ -1,0 +1,54 @@
+  C R Y S O L    Version 2.8.3  -- 04/10/12
+ 
+ 
+ -- Program  started  at   21-Feb-2019   14:58:21--
+ 
+ --------  Real space resolution and grid  -------- 
+ 
+  Maximum order of harmonics ............................ : 15
+  Order of Fibonacci grid ............................... : 17
+  Total number of directions ............................ : 2585
+ 
+ ------------  Reciprocal space grid  -------------
+ 
+   in s = 4*pi*sin(theta)/lambda [1/angstrom] 
+  Maximum scattering angle .............................. : 0.5000
+  Number of angular points .............................. : 51
+ 
+ --- Structural parameters (sizes in angstroms) --- 
+ 
+ PDB file name ......................... : /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod14.pdb
+  Number of atoms read .................................. : 1284
+  Number of discarded hydrogens ......................... : 1265
+ Geometric Center:  -20.042   20.129    3.598
+  Number of C ........................................... : 801
+  Number of N ........................................... : 228
+  Number of O ........................................... : 249
+  Number of S ........................................... : 6
+ Center of the excess electron density: -0.386  0.027  0.017
+ Electron   Rg   :  16.86       Envelope   Rg      :  17.21    
+ Shape      Rg   :  16.87       Envelope  volume   : 0.2693E+05
+ Shell    volume : 0.1413E+05   Envelope  surface  :  4025.    
+ Shell      Rg   :  22.10       Envelope  radius   :  35.79    
+ Shell    width  :  3.000       Envelope  diameter :  64.34    
+ Molecular Weight: 0.1827E+05   Dry volume         : 0.2214E+05
+ Displaced volume: 0.2264E+05   Average atomic rad.:  1.615    
+ Number of residuals :     161
+ 
+ -- No data fitting, parameters entered manually --
+ 
+ Solvent density ........................................ : 0.3340
+ Contrast of the solvation shell ........................ : 3.000E-02
+ Average atomic radius .................................. : 1.615
+ Excluded Volume ........................................ : 2.2635E+04
+ Average atomic volume .................................. : 17.63
+ Rg ( Atoms - Excluded volume + Shell ) ................. : 17.86
+ Rg from the slope of net intensity ..................... : 18.64
+ Average electron density ............................... : 0.4309
+  
+ ----------------  Output files  ------------------
+  
+ Intensities    saved to file mod1400.int
+ Net amplitudes saved to file mod1400.alm
+ 
+  C R Y S O L    Version 2.8.3  -- 04/10/12 ----  terminated at   21-Feb-2019   14:58:21--

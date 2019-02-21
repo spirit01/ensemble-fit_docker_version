@@ -1,0 +1,100 @@
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:21
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod09.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  18.20
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:21
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod19.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  18.57
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:21
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod14.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  18.64
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:21
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod12.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  19.06
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:22
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod01.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  19.02
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:22
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod04.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  19.05
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:22
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod17.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  18.35
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:22
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod08.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  18.61
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:23
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod18.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  19.05
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:23
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod15.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  19.29
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:23
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod02.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  18.90
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:23
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod06.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  19.30
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:23
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod20.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  18.84
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:24
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod16.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  18.19
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:24
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod11.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  19.29
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:24
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod13.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  18.63
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:24
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod03.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  18.94
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:25
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod05.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  18.81
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:25
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod10.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  19.08
+
+ Created by CRYSOL v. 28 on   21-Feb-2019   14:58:25
+
+ Batch: crysol /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data/crysol_curves/mod07.pdb
+ Model: /home/petrahrozkova/  Theoretical Rg:  18.99

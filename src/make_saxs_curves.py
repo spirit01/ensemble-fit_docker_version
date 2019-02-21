@@ -10,8 +10,6 @@ import sys
 import tempfile
 import threading
 from argparse import ArgumentParser
-from functools import partial
-from multiprocessing import Pool
 
 
 class LogPipe(threading.Thread):
@@ -63,7 +61,7 @@ def set_argument():
     parser.add_argument("-d", "--dir", dest="mydirvariable",
                         help="Choose dir with pdb files", metavar="DIR", required=True)
 
-    parser.add_argument("--finaldir", help="choose dir to making saxs curve")
+    parser.add_argument("--finaldir", help="choose dir to making saxs curve", required=True)
 
     parser.add_argument("--makecurve", help="choose method to make a curve",
                         choices=['foxs', 'crysol'], required=True)
@@ -86,9 +84,9 @@ def run_method(method, config):
             print(f'Config file does not exist!, the {method} can not run.')
         sys.exit(1)
     if method == 'foxs':
-        make_foxs(glob.glob(os.path.join(os.getcwd(), '*')), path)
+        make_foxs(glob.glob(os.path.join(os.getcwd(), '*')), path, logging)
     if method == 'crysol':
-        make_crysol(glob.glob(os.path.join(os.getcwd(), '*')), path)
+        make_crysol(glob.glob(os.path.join(os.getcwd(), '*')), path, logging)
 
 
 def check_directory_pdb_files(mydirvariable, final_directory):
@@ -102,10 +100,8 @@ def check_directory_pdb_files(mydirvariable, final_directory):
         shutil.copy(f'{os.path.abspath(mydirvariable)}/{file}', final_directory)
 
 
-def make_foxs(all_files):
-    path = glob.glob(os.path.join(os.getcwd(), '*'))
+def make_foxs(all_files, path, verbose_logfile):
     for file in all_files:
-        """
         if verbose_logfile:
             logpipe = LogPipe(logging.DEBUG)
             # fox sends stdout to stderr by default
@@ -115,9 +111,8 @@ def make_foxs(all_files):
             logpipe.close()
             logpipe_err.close()
         else:
-        """
-        return_value = subprocess.run([path, file], stdout=subprocess.PIPE,
-                                      stderr=subprocess.PIPE)
+            return_value = subprocess.run([path, file], stdout=subprocess.PIPE,
+                                          stderr=subprocess.PIPE)
         if return_value.returncode:
             print(f'ERROR: Foxs failed.', file=sys.stderr)
             logging.error(f'Foxs failed.')
@@ -127,12 +122,9 @@ def make_foxs(all_files):
 
 
 # TODO
-def make_crysol(all_files):
-    path = glob.glob(os.path.join(os.getcwd(), '*'))
-
+def make_crysol(all_files, path, verbose_logfile):
     # take an abinito's curve
     for file in all_files:
-        """
         if verbose_logfile:
             logpipe = LogPipe(logging.DEBUG)
             # fox sends stdout to stderr by default
@@ -142,9 +134,8 @@ def make_crysol(all_files):
             logpipe.close()
             logpipe_err.close()
         else:
-        """
-        return_value = subprocess.run([path, f'{file}'], stdout=subprocess.PIPE,
-                                      stderr=subprocess.PIPE)
+            return_value = subprocess.run([path, f'{file}'], stdout=subprocess.PIPE,
+                                          stderr=subprocess.PIPE)
 
         if return_value.returncode:
             print(f'ERROR: CRYSOL failed.', file=sys.stderr)
@@ -189,19 +180,7 @@ def main():
         check_directory_pdb_files(args.mydirvariable, tmpdir)
         print('Directory with saxs curve is:', tmpdir)
         os.chdir(tmpdir)
-    function_partial = partial(make_foxs,)
-    with  Pool(os.cpu_count()) as pool:
-        if args.makecurve == 'foxs':
-            pool.map(make_foxs, )
-        if args.makecurve == 'crysol':
-            pool.map(make_crysol)#, glob.glob(os.path.join(os.getcwd(), '*')))
-            run_method(args.makecurve, config)
-    #if args.makecurve == 'foxs':
-    #    if check_binary(args.makecurve, config):
-    #        make_foxs(glob.glob(os.path.join(os.getcwd(), '*')))
-    #if args.makecurve == 'crysol':
-    #    if check_binary(args.makecurve, config):
-    #        make_crysol(glob.glob(os.path.join(os.getcwd(), '*')))
+    run_method(args.makecurve, config)
 
 
 if __name__ == '__main__':
