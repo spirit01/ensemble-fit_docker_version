@@ -4,51 +4,33 @@
 Ensemble-fit
 ===========================================
 
-:Date: $Date: 2016-09-25 21:40:17 +0000 (Fri, 26 Feb 2016) $
 :Copyright: This document has been placed in the public domain.
 
 .. contents::
 .. sectnum::
 
-This manual is for testing script, which compare ensemble and several other methods: EOM, MultiFoxs a MES. More information about each methods:
+This manual is for testing script, which compare ensemble and several other methods: EOM, MultiFoxs a MES. More information about each methods is on the website:
  :EOM: https://www.embl-hamburg.de/biosaxs/manuals/eom.html
  :MultiFoxs: https://modbase.compbio.ucsf.edu/multifoxs/help.cgi?type=about
  :MES: http://bl1231.als.lbl.gov/saxs_protocols/mes.php
 
-The following sections briefly describe the testing script and the detail steps required to run the testing script.
+The following sections briefly describe the testing script and the detail steps required to run the testing script. Testing directory also contains training data from MD.
 
 Docker image for ensemble-fit
 ==========
-Program **ensemble-fit** and testing script are available in docker image **ensemble**. Manual for running image ensemble is below:
-
-Download all IMP 2.9.0. libraries for Fedora 28 from https://integrativemodeling.org/download-linux.html
-
-- wget https://integrativemodeling.org/2.9.0/download/IMP-2.9.0-1.fc28.x86_64.rpm -P {your_path}/ensemble-fit_docker_version/dependences/IMP/
-
-- wget https://integrativemodeling.org/2.9.0/download/IMP-python3-2.9.0-1.fc28.x86_64.rpm -P {your_path}/ensemble-fit_docker_version/dependences/IMP/
-
-- wget https://integrativemodeling.org/2.9.0/download/IMP-mpich-2.9.0-1.fc28.x86_64.rpm -P {your_path}/ensemble-fit_docker_version/dependences/IMP/
-
-- wget https://integrativemodeling.org/2.9.0/download/IMP-devel-2.9.0-1.fc28.x86_64.rpm -P {your_path}/ensemble-fit_docker_version/dependences/IMP/
+Program **ensemble-fit** , testing script and data are available in docker image **ensemble** on DockerHub. Manual for running image ensemble is below:
 
 
-Program **GAJOE** can donwload only with permision and create an account. If you want to use GAJOE in your analysis, download ATSAS in version 2.8.4. for openSUSE-42. Otherwise set value for Gajoe to -1 in confing.ini.
+Program **GAJOE** can donwload only with permision and an account on website. If you want to use GAJOE in your analysis, download ATSAS in version 2.8.4. for openSUSE-42. Otherwise set value for Gajoe to -1 in confing.ini. GAJOE is not part of basic ensemble and it is neccessary to build new image from ensemble with this extenstion.
 
  - Download ATSAS from https://www.embl-hamburg.de/biosaxs/download.html
  - wget ATSAS-2.8.4-1.SUSE-42.x86_64.rpm to {your_path}/ensemble-fit_docker_version/dependences/
 
-**Verify that you have a docker running and create docker image:**
-(You can use sudo or docker group).
 
-- sudo docker build -t ensamble .
-
-**run docker image:**
-
-- sudo docker run --rm -ti ensamble bash
 
 Program ensemble-fit is saved in directory /home/ensemble-fit/. Testing script is in ensemble-test directory. In /home/weights/ is program MES. MultiFoxs is part of IMP libraries.
 
-Examples
+Parametrs of testing scripts
 ========
 Script for SAXS curve is in **make_saxs_curves** directory and has a several options
  - -d directory with pdb files
@@ -123,12 +105,26 @@ Parametrs for script
 
 Examples
 ========
-Run all experimetns:
+**Verify that you have a docker running and create docker image:**
+(You can use sudo or docker group).
+
+Image without GAJOE is saved on DockerHub, thus it is fast and easy to use it.
+
+
+Image with GAJOE must be build on your own
+
+- sudo docker build -t ensamble_gajoe .
+
+**run docker image:**
+
+Image has default setting and anticipated testing with parametrs:
+ - n = 10, k = 5, r = 3, experimentdata = /home/data/experimental_data/exp.dat, output = /home/ensemble-test/results/, preserve, verbose = 3 and tolerance = 1
+ - docker run -it -v /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data:/home/data -v /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/src:/home/ensemble-test ensembleRun all experimetns:
 
 In /home/ensemble-test/src/ run all method from cinfig.ini:
 ./run_script_ensemble -d ../foxs_curves/ -n 10 -k 5 -r 3 --tolerance 0 --verbose 3 --preserve --experimentdata ../experimental_data/exp.dat --output ../results/
 
-Run just one method, for example ensemble-fit. You must turn on ensemble-fit method in config.ini.
+.Run just one method, for example ensemble-fit. You must turn on ensemble-fit method in config.ini.
 
 ./saxs_experiment.py -d ../foxs_curves/ -n 10 -k 5 -r 3 --tolerance 0 --verbose 3 --preserve --experimentdata ../experimental_data/exp.dat --output ../results/ --method ensemble
 --------------------
