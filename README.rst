@@ -13,22 +13,16 @@ This manual is for testing script, which compare ensemble and several other meth
  :EOM: https://www.embl-hamburg.de/biosaxs/manuals/eom.html
  :MultiFoxs: https://modbase.compbio.ucsf.edu/multifoxs/help.cgi?type=about
  :MES: http://bl1231.als.lbl.gov/saxs_protocols/mes.php
+ :GAJOE: https://www.embl-hamburg.de/biosaxs/manuals/eom.html
 
-The following sections briefly describe the testing script and the detail steps required to run the testing script. Testing directory also contains training data from MD.
+The following sections briefly describe the testing script and the detail steps required to run the testing script. Testing id divided to two part. At first, script make_curves creates SAXS curves from pdb files in a propriate format. The second, running analysis on this curves and pdb files. PDB files yould be upload or use predefined directory examples_I or examples_II.
 
-Docker image for ensemble-fit
+
+Making curves from PDB files
 ==========
-Program **ensemble-fit** , testing script and data are available in docker image **ensemble** on DockerHub. Manual for running image ensemble is below:
-
-
-Program **GAJOE** can donwload only with permision and an account on website. If you want to use GAJOE in your analysis, download ATSAS in version 2.8.4. for openSUSE-42. Otherwise set value for Gajoe to -1 in confing.ini. GAJOE is not part of basic ensemble and it is neccessary to build new image from ensemble with this extenstion.
-
- - Download ATSAS from https://www.embl-hamburg.de/biosaxs/download.html
- - wget ATSAS-2.8.4-1.SUSE-42.x86_64.rpm to {your_path}/ensemble-fit_docker_version/dependences/
 
 
 
-Program ensemble-fit is saved in directory /home/ensemble-fit/. Testing script is in ensemble-test directory. In /home/weights/ is program MES. MultiFoxs is part of IMP libraries.
 
 Parametrs of testing scripts
 ========
@@ -102,7 +96,20 @@ Parametrs for script
  --experimentdata
  --verbose has 3
  --verbose_logfile
+ 
+Docker image for ensemble-fit
+==========
+Program **ensemble-fit** , testing script and data are available in docker image **ensemble** on DockerHub. Manual for running image ensemble is below.
 
+
+Program **GAJOE** can donwload only with permision and an account on website. If you want to use GAJOE in your analysis, download ATSAS in version 2.8.4. for openSUSE-42. Otherwise set value = -1 for GAJOE in confing.ini. GAJOE is not part of basic ensemble and it is neccessary to build new image from ensemble with this extenstion.
+
+ - Download ATSAS from https://www.embl-hamburg.de/biosaxs/download.html
+ - wget ATSAS-2.8.4-1.SUSE-42.x86_64.rpm to {your_path}/ensemble-fit_docker_version/dependences/
+
+
+
+Program ensemble-fit is saved in directory /home/ensemble-fit/. Testing script is in ensemble-test directory. In /home/weights/ is program MES. MultiFoxs is part of IMP libraries.
 Examples
 ========
 **Verify that you have a docker running and create docker image:**
