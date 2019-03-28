@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# script for making curves with FOXS or Crysol
+
 # -*- coding: utf-8 -*-
 import configparser
 import glob

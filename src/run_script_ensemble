@@ -115,7 +115,7 @@ def get_saxs_methods(config):
 
 
 def main():
-    # it is nessesary to set working directory for running in ensemble image.
+    # it is necessary to set working directory for running in ensemble image.
     # Without this line working directory is only /.
     os.chdir('/home/ensemble-test/')
     config = configparser.ConfigParser()

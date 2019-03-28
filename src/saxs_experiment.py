@@ -117,13 +117,11 @@ def set_argument():
 
     parser.add_argument("-n", metavar='N', type=int,
                         dest="n_files",
-                        help="Number of selected structure",
-                        required=True)
+                        help="Number of selected structure")
 
     parser.add_argument("-k", metavar='K', type=int,
                         dest="k_options",
-                        help="Number of possibility structure from n structures, must be less then selected files",
-                        required=True)
+                        help="Number of possibility structure from n structures, must be less then selected files")
 
     parser.add_argument("-r", metavar='R', type=int,
                         dest="repeat", help="Number of repetitions all experiments",
@@ -150,6 +148,16 @@ def set_argument():
 
     parser.add_argument("--experimentdata", help="choose experiment pattern for mixing curve with script adderror",
                         metavar="DIR", dest="experimentdata", required=True)
+
+    parser.add_argument("--turn_on_curve", help="turn on the custom file option",
+                        metavar="DIR", dest="turn_on", required=True)
+
+    parser.add_argument("--owncurve", help="choose file with your onw curve, if it is available",
+                        metavar="DIR", dest="owncurve")
+
+    parser.add_argument("--file_with_experimental_expected", help="choose file with pdb of structure in your curve "
+                                                      "+ expected weights. Format: pdb; weight ",
+                        metavar="DIR", dest="experimentalexpected")
 
     return parser.parse_args()
 
@@ -266,27 +274,56 @@ def final_statistic(runs, verbose):
     logging.info(f'*****FINAL RMSD and STD| {np.mean(rmsd):5.3f}|{np.std(rmsd):5.3f}')
 
 
+# check format of files from user
+#             file.write(f'{q:5.3f} {y} 0\n')
+def check_format_users_curve(owncurve):
+    with open(owncurve) as file:
+        for line in file:
+            file.readline()
+            if not line.isdigit():
+                print('File with SAXS curve has wrong format.')
+                return False
+    return True
+
+def process_experiumental_expected(experimentalexpected):
+    list_weights = []
+    with open (experimentalexpected) as file:
+        for line in file:
+            list_weights.append(line.split(";")[1])
+
+    return list_weights
+
 def run_method(args, path, method):
     all_runs = []
     for i in range(args.repeat):
         tmpdir = tempfile.mkdtemp()
         logging.info(f'Task {i}')
         logging.info(f'#Working directory: {tmpdir}')
-        list_pdb_file = find_pdb_file(args.mydirvariable)
+        list_pdb_file = (args.mydirvariable)
+
         if args.verbose == 3 or args.verbose == 2:
             print('====================================================')
             print(f'{Colors.OKGREEN} RUN {i+1}/{args.repeat} \n {Colors.ENDC} \n')
-        all_files = [x.split('.')[0] for x in random.sample(list_pdb_file, args.n_files)]
-        # copy to pds
-        selected_files = random.sample(all_files, args.k_options)
-        # copy to dats
-        sample = np.random.dirichlet(np.ones(args.k_options), size=1)[0]
-        weights = np.round(np.random.multinomial(1000, sample) / 1000, 3)
-        files_and_weights = list(zip(selected_files, weights))
-        logging.info(f'#Selected_files \n')
-        for file1, weight1 in files_and_weights:
-            logging.info(f'#structure {file1} | weight {weight1:5.3f}')
-        # copy to methods
+
+        if not args.turn_on_curve:
+            all_files = [x.split('.')[0] for x in random.sample(list_pdb_file, args.n_files)]
+            # copy to pds
+            selected_files = random.sample(all_files, args.k_options)
+            # copy to dats
+            sample = np.random.dirichlet(np.ones(args.k_options), size=1)[0]
+            weights = np.round(np.random.multinomial(1000, sample) / 1000, 3)
+            files_and_weights = list(zip(selected_files, weights))
+            logging.info(f'#Selected_files \n')
+            for file1, weight1 in files_and_weights:
+                logging.info(f'#structure {file1} | weight {weight1:5.3f}')
+
+        else:
+            all_files = list_pdb_file
+            selected_files = list_pdb_file
+            weights = process_experiumental_expected(args.eexperimentalexpected)
+            files_and_weights = list(zip(selected_files, weights))
+
+        # copy to method
         prepare_directory(tmpdir)
         if args.verbose == 3:
             print(f'{Colors.OKBLUE}\nCreated temporary directory \n {Colors.ENDC} {tmpdir}\n')
@@ -294,7 +331,18 @@ def run_method(args, path, method):
         m = importlib.import_module(f'methods_saxs.{method}')
         m.prepare_data(all_files, tmpdir, args.mydirvariable)
         logging.info(f'\n==========================\n')
-        make_curve_for_experiment(files_and_weights, tmpdir, args.experimentdata, args.mydirvariable)
+
+        if args.turn_on and os.path.isfile(args.owncurve):
+            if check_format_users_curve(args.owncurve) and os.path.isfile(args.owncurve):
+                shutil.move(args.owncurve, f'{tmpdir}/method/curve.modified.dat')
+            else:
+                print(f'{Colors.WARNING} Wrong format SAXS curve or script gets directory\n')
+                logging.error(f' Wrong format SAXS curve or script gets directory {args.owncurve}')
+                sys.exit(1)
+
+        else:
+            make_curve_for_experiment(files_and_weights, tmpdir, args.experimentdata, args.mydirvariable)
+
         if args.verbose == 3:
             print_parameters_verbose(args, list_pdb_file, all_files)
         run = Run(all_files, selected_files, weights, i + 1, method)
@@ -338,7 +386,10 @@ if __name__ == '__main__':
     np.random.seed(1)
     args = set_argument()
     os.chdir(args.mydirvariable)
-    test_argument(args, find_pdb_file(args.mydirvariable))
+
+    if not args.turn_on_curve:
+        test_argument(args, find_pdb_file(args.mydirvariable))
+
     hdlr = logging.FileHandler(
         f'{args.output}/result_{args.method}_n{args.n_files}_k{args.k_options}_{strftime("%Y-%m-%d__%H-%M-%S", localtime())}.log')
     hdlr.setFormatter(SpecialFormatter())

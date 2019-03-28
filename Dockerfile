@@ -26,13 +26,15 @@ RUN wget http://bl1231.als.lbl.gov/pickup/mes.tar -O /tmp/mes.tar \
     && make -C /opt/weights/
 
 # prepare directory and install ensemble-fit
-RUN make -C /opt/ensemble-fit/core/
 
+ENV PATH=$PATH:/home/ensemble-test/
+ENV PATH=$PATH:/home/data/
+
+RUN make -C /opt/ensemble-fit/core/
 #Run experiment in /opt/ensemble-test/src/
 #docker run -it -v /home/petrahrozkova/Dokumenty/ensemble-fit_docker_version/data:/home/data ensemble bash
 ENTRYPOINT ["/home/ensemble-test/run_script_ensemble"]
-#TODO vyresit nastaveni CMD, aby se image poustel s timto
 CMD ["-d" , "/home/data/foxs_curves/", "-n", "10", "-k","5","-r","3", "--experimentdata", "/home/data/experimental_data/exp.dat","--output","/home/ensemble-test/results/","--preserve","--verbose","3","--tolerance","1"]
 
- #reduce dockerfile size
- RUN yum clean all && rm -rf /var/cache/yum
+#reduce dockerfile size and clean
+RUN yum clean all && rm -rf /var/cache/yum
