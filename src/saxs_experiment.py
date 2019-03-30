@@ -149,8 +149,8 @@ def set_argument():
     parser.add_argument("--experimentdata", help="choose experiment pattern for mixing curve with script adderror",
                         metavar="DIR", dest="experimentdata", required=True)
 
-    parser.add_argument("--turn_on_curve", help="turn on the custom file option",
-                        metavar="DIR", dest="turn_on", required=True)
+    parser.add_argument("--turn_on", help="turn on the custom file option",
+                        dest="turn_on", action="store_true")
 
     parser.add_argument("--owncurve", help="choose file with your onw curve, if it is available",
                         metavar="DIR", dest="owncurve")
@@ -304,8 +304,8 @@ def run_method(args, path, method):
         if args.verbose == 3 or args.verbose == 2:
             print('====================================================')
             print(f'{Colors.OKGREEN} RUN {i+1}/{args.repeat} \n {Colors.ENDC} \n')
-
-        if not args.turn_on_curve:
+        print(args.turn_on)
+        if args.turn_on:
             all_files = [x.split('.')[0] for x in random.sample(list_pdb_file, args.n_files)]
             # copy to pds
             selected_files = random.sample(all_files, args.k_options)
@@ -382,12 +382,13 @@ if __name__ == '__main__':
     if not check_binary():
         sys.exit(1)
     methods = get_saxs_methods()
+
     random.seed(1)
     np.random.seed(1)
     args = set_argument()
     os.chdir(args.mydirvariable)
 
-    if not args.turn_on_curve:
+    if args.turn_on:
         test_argument(args, find_pdb_file(args.mydirvariable))
 
     hdlr = logging.FileHandler(

@@ -31,13 +31,11 @@ def get_argument():
     parser = ArgumentParser()
     parser.add_argument("-n", metavar='N', type=int,
                         dest="n_files",
-                        help="Number of selected structure",
-                        required=True)
+                        help="Number of selected structure")
 
     parser.add_argument("-k", metavar='K', type=int,
                         dest="k_options",
-                        help="Number of possibility structure, less then selected files",
-                        required=True)
+                        help="Number of possibility structure, less then selected files")
 
     parser.add_argument("-r", metavar='R', type=int,
                         dest="repeat", help="Number of repetitions",
@@ -46,8 +44,10 @@ def get_argument():
     parser.add_argument("--tolerance", type=float, dest="tolerance",
                         help="pessimist (0) or optimist (0 < x <1) result",
                         default=0)
+
     parser.add_argument("-d", "--dir", dest="mydirvariable",
                         help="Choose dir", metavar="DIR", required=True)
+
     parser.add_argument("--verbose", type=int,
                         help="increase output verbosity, value 0, 1, 2, 3",
                         default=0)
@@ -62,6 +62,16 @@ def get_argument():
 
     parser.add_argument("--experimentdata", help="choose file for adderror",
                         metavar="DIR", dest="experimentdata", required=True)
+
+    parser.add_argument("--turn_on", help="turn on the custom file option",
+                        dest="turn_on", action="store_true")
+
+    parser.add_argument("--owncurve", help="choose file with your onw curve, if it is available",
+                        metavar="DIR", dest="owncurve")
+
+    parser.add_argument("--file_with_experimental_expected", help="choose file with pdb of structure in your curve "
+                                                                  "+ expected weights. Format: pdb; weight ",
+                        metavar="DIR", dest="experimentalexpected")
 
     return parser.parse_args()
 
@@ -122,6 +132,9 @@ def main():
     config.read(f'{os.getcwd()}/config.ini')
     if not check_binary():
         sys.exit(1)
+
+    if args.turn_on and os.path.isfile(args.owncurve):
+        
     available_methods = get_saxs_methods(config)
     args = get_argument()
     datum = strftime("%Y-%m-%d__%H-%M-%S", localtime())
