@@ -9,12 +9,17 @@ Ensemble-fit
 .. contents::
 .. sectnum::
 
+<<<<<<< HEAD
 
 Manual describes testing script for comparing several methods for analysis od SAXS curves: Ensemble-fit, EOM, MultiFoxs a MES. Detail information about each method is desribed on the following websites:
+=======
+This manual is for testing script, which compares ensemble and several other methods: EOM, MultiFoxs a MES. More information about each method is on the following websites:
+>>>>>>> e2c9f617fb60efb45668e2fbf39bef85f7ce5e49
  :EOM: https://www.embl-hamburg.de/biosaxs/manuals/eom.html
  :MultiFoxs: https://modbase.compbio.ucsf.edu/multifoxs/help.cgi?type=about
  :MES: http://bl1231.als.lbl.gov/saxs_protocols/mes.php
  :GAJOE: https://www.embl-hamburg.de/biosaxs/manuals/eom.html
+<<<<<<< HEAD
  :Ensemble-fit: (reference to paper)
 
 The following sections briefly describe the testing script and the detailel steps required to run the testing script and geting results. Testing methods is divided into two part. At first, script ***make_saxs_curves*** creates SAXS curves from pdb files in a propriate format to {name_of_your_directory}. Second, script performes analysis on these curves and pdb files. Results are written to log file.
@@ -40,10 +45,41 @@ EXAMPLE for crysol:
 
 Parametrs of testing scripts
 ========
+=======
+
+The following sections briefly describe the testing script and the detailel steps required to run the testing script. Testing is divided into two part. At first, script make_curves creates SAXS curves from pdb files in a propriate format. The second script performes analysis on these curves and pdb files. You have to upload zour own PDB files or use predefined ones in directory examples_I and examples_II.
+
+
+Making curves from PDB files
+==========
+
+
+
+
+Parametrs of testing scripts
+========
+Script for SAXS curve is in **make_saxs_curves** directory and has a several options
+ - -d directory with pdb files
+ - --finaldir final directory, it can not exist yet.
+ - --makecurve choose method for SAXS curve - foxs or crysol
+
+Using the Fox software you can create SAXS curve in ensemble image. For pdb's file in examples_I the script outputs saxs curve as file.dat. Results are saved in directory /home/Ensemble-test/foxs_curves. 
+
+ - /home/ensemble-test/src/make_saxs_curves.py -d /home/ensemble-test/examples_I/  --finaldir /home/ensemble-test/foxs_curves --makecurve foxs
+
+>>>>>>> e2c9f617fb60efb45668e2fbf39bef85f7ce5e49
 
 Testing scripts works with pdb's files and saxs curves. All files ({}.pdb and {}.dat) must be in the same directory. It is possible to use your own data, but you have keep the same data format as script ***make_saxs_curves***.
 
+<<<<<<< HEAD
 Runing methods have several options. It possible to use them individualy or combined. If you run them combined you get also a comparsion for each method. The result of individual method is saved in format result_{method}_{n}_{k}_{date}.log. Results for more than one method is saved in final_result_{n}_{k}_date.log file. The verbosity of output is defined by verbose_logfile parametrs. Verbosity of std_out is  in range 0 to 2.
+=======
+ - /home/ensemble-test/src/make_saxs_curves.py -d /home/ensemble-test/examples_I/  --finaldir /home/ensemble-test/crysol_curves --makecurve crysol
+
+Testing scripts works with pdb's files and saxs curves. All files ({}.pdb and {}.dat) must be in the same directory. It is possible to use your own data, but you have keep the data format.
+
+Runing method have several options. It possible to use them individualy or combined. If you run them combined you get also a comparsion for each method. The result of individual method is saved in format result_{method}_{n}_{k}_{date}.log. Results for more than one method is saved in final_result_{n}_{k}_date.log file. The verbosity of output is defined by verbose_logfile parametrs. Verbosity of std_out is  in range 0 to 2.
+>>>>>>> e2c9f617fb60efb45668e2fbf39bef85f7ce5e49
 
 Mixing foxs_curves
 ------------------
@@ -97,7 +133,7 @@ Parametrs for script
  --experimentdata
  --verbose has 3
  --verbose_logfile
-
+ 
 Docker image for ensemble-fit
 ==========
 Program **ensemble-fit** , testing script and data are available in a docker image **ensemble** on DockerHub. Manual for running image ensemble is below.
@@ -109,6 +145,20 @@ Program **GAJOE** can be donwloaded only with permision and an account on websit
  - wget ATSAS-2.8.4-1.SUSE-42.x86_64.rpm to {your_path}/ensemble-fit_docker_version/dependences/
 
 
+<<<<<<< HEAD
+Docker image for ensemble-fit
+==========
+Program **ensemble-fit** , testing script and data are available in a docker image **ensemble** on DockerHub. Manual for running image ensemble is below.
+
+
+Program **GAJOE** can be donwloaded only with permision and an account on website. If you want to use GAJOE in your analysis, download ATSAS in version 2.8.4. for openSUSE-42. Otherwise set value = -1 for GAJOE in confing.ini. GAJOE is not part of basic ensemble and it is neccessary to build new image from ensemble with this extenstion.
+
+ - Download ATSAS from https://www.embl-hamburg.de/biosaxs/download.html
+ - wget ATSAS-2.8.4-1.SUSE-42.x86_64.rpm to {your_path}/ensemble-fit_docker_version/dependences/
+
+
+=======
+>>>>>>> e2c9f617fb60efb45668e2fbf39bef85f7ce5e49
 
 Program ensemble-fit is saved in directory /home/ensemble-fit/. Testing script is in ensemble-test directory. In /home/weights/ is program MES. MultiFoxs is part of IMP libraries.
 Examples
